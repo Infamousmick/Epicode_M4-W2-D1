@@ -27,6 +27,8 @@ const search = () => {
     const outputArr = mapData(res);
     const likeRadio = radio();
     const filteredArr = filterArr(likeRadio, outputArr);
+    const count = countTotal(filteredArr);
+    replaceCount(count);
 
     filteredArr.forEach((photo) => createCards(photo, rowContainer));
   });
@@ -75,6 +77,18 @@ const filterArr = (liked, arr) => {
       return photo.isLiked === false;
     }
   });
+};
+
+const countTotal = (arr) => {
+  return arr.reduce((acc, corr) => {
+    return acc + 1;
+  }, 0);
+};
+
+const replaceCount = (count) => {
+  const countEl = document.querySelector("h1#count");
+  countEl.textContent = `Totale: ${count}`;
+  countEl.classList.remove("d-none");
 };
 const createCards = (data, container) => {
   const col = document.createElement("div");
